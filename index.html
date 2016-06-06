@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Stacklogger by marcelbonnet</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Stacklogger</h1>
+        <p>An Agnostic and Bootstrap 3 compatible (for default) plugin to log messages in a stack to the user (i.e. using a root DIV element).</p>
+
+        <p class="view"><a href="https://github.com/marcelbonnet/stacklogger">View the Project on GitHub <small>marcelbonnet/stacklogger</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/marcelbonnet/stacklogger/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/marcelbonnet/stacklogger/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/marcelbonnet/stacklogger">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        
+
+<div id="logger"></div>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>logger<span class="pl-pds">"</span></span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span><span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">&lt;</span>script type<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>text/javascript<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+<span class="pl-en">$</span>(<span class="pl-c1">document</span>).<span class="pl-en">ready</span>(<span class="pl-k">function</span>(){
+    <span class="pl-c">// Override default by passing options to plugin method.</span>
+    <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#logger<span class="pl-pds">"</span></span>).<span class="pl-en">stackLogger</span>({
+        fadeOut <span class="pl-k">:</span> <span class="pl-c1">4000</span>,        <span class="pl-c">//default delay before fade out a message</span>
+        <span class="pl-c">//FIXME: need to access constants names :</span>
+        neverFadeOut <span class="pl-k">:</span> [ <span class="pl-c1">4</span> ],  <span class="pl-c">//wait for user input before close ERRor messages</span>
+        closeButtonLabel <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Close and Get me Some Coffe<span class="pl-pds">'</span></span>, <span class="pl-c">//custom label for input button (aplies to ERRor messages)</span>
+        classes <span class="pl-k">:</span> { warn <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>mywarn<span class="pl-pds">'</span></span> }  <span class="pl-c">//the default classes are Bootstrap 3, but you may apply your own to every LEVEL message</span>
+    }).<span class="pl-en">trigger</span>(<span class="pl-s"><span class="pl-pds">'</span>fade<span class="pl-pds">'</span></span>);
+
+    <span class="pl-k">var</span> $logger <span class="pl-k">=</span> <span class="pl-en">$</span>(<span class="pl-s"><span class="pl-pds">"</span>#logger<span class="pl-pds">"</span></span>).<span class="pl-c1">data</span>(<span class="pl-s"><span class="pl-pds">'</span>stackLogger<span class="pl-pds">'</span></span>);<span class="pl-c">//instance</span>
+    <span class="pl-c">//example chainning messages:</span>
+
+    $logger
+    .<span class="pl-en">l</span>(<span class="pl-s"><span class="pl-pds">"</span>Ok message added<span class="pl-pds">"</span></span>, <span class="pl-smi">$logger</span>.<span class="pl-c1">OK</span>)                 <span class="pl-c">//will apply the default delay</span>
+  .<span class="pl-en">l</span>(<span class="pl-s"><span class="pl-pds">"</span>Warning message added<span class="pl-pds">"</span></span>, <span class="pl-smi">$logger</span>.<span class="pl-c1">WARN</span>, <span class="pl-c1">0</span>)       <span class="pl-c">//Will not fade out this message FIXME: add a button when zero delay or let it be configureable</span>
+    .<span class="pl-en">l</span>(<span class="pl-s"><span class="pl-pds">"</span>Another warning message<span class="pl-pds">"</span></span>, <span class="pl-smi">$logger</span>.<span class="pl-c1">WARN</span>, <span class="pl-c1">6000</span>)  <span class="pl-c">//6 seconds delay</span>
+    .<span class="pl-en">l</span>(<span class="pl-s"><span class="pl-pds">"</span>INFO message<span class="pl-pds">"</span></span>, <span class="pl-smi">$logger</span>.<span class="pl-c1">INFO</span>, <span class="pl-c1">8000</span>)             <span class="pl-c">//8 seconds delay</span>
+    .<span class="pl-en">l</span>(<span class="pl-s"><span class="pl-pds">"</span>DEFAULT level message<span class="pl-pds">"</span></span>, <span class="pl-smi">$logger</span>.<span class="pl-c1">DEFAULT</span>, <span class="pl-c1">5000</span>) <span class="pl-c">//5 seconds delay</span>
+    .<span class="pl-en">l</span>(<span class="pl-s"><span class="pl-pds">"</span>ERROR message.<span class="pl-pds">"</span></span>, <span class="pl-smi">$logger</span>.<span class="pl-c1">ERR</span>, <span class="pl-c1">500</span>);            <span class="pl-c">//ERRor messages always wait for user input (FIXME: default wait. If time is declared, honor it)</span>
+
+  <span class="pl-c">//Testing the visual effect with random messages:</span>
+  <span class="pl-k">function</span> <span class="pl-en">randLevel</span>(){
+    l <span class="pl-k">=</span> <span class="pl-c1">Math</span>.<span class="pl-c1">abs</span>( <span class="pl-c1">parseInt</span>(<span class="pl-c1">Math</span>.<span class="pl-c1">random</span>() <span class="pl-k">*</span> <span class="pl-c1">10</span>) <span class="pl-k">-</span> <span class="pl-c1">5</span>)
+    <span class="pl-k">if</span>(l <span class="pl-k">===</span> <span class="pl-c1">0</span>)
+        <span class="pl-k">return</span> <span class="pl-en">randLevel</span>();
+    <span class="pl-k">return</span> l;
+  }
+
+  <span class="pl-k">var</span> tid <span class="pl-k">=</span> <span class="pl-c1">setInterval</span>(mycode, <span class="pl-c1">3000</span>);
+  <span class="pl-k">function</span> <span class="pl-en">mycode</span>() {
+    <span class="pl-smi">$logger</span>.<span class="pl-en">l</span>(<span class="pl-s"><span class="pl-pds">"</span>Message added to the stack<span class="pl-pds">"</span></span>, <span class="pl-en">randLevel</span>(), (<span class="pl-en">randLevel</span>()<span class="pl-k">+</span><span class="pl-en">randLevel</span>())<span class="pl-k">*</span><span class="pl-c1">2000</span> );
+  }
+
+});
+<span class="pl-k">&lt;</span><span class="pl-k">/</span>script<span class="pl-k">&gt;</span></pre></div>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/marcelbonnet">marcelbonnet</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
