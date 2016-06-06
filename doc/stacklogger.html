@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Usage Example</title>
+
+<style>
+.mywarn{
+  color: black;
+  background-color: orange;
+  font-size: 120%;
+  font-weight: bold;
+  height: 100px;
+</style>
+
+</head>
+<body>
+
+<div id="logger" class=""></div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    // Override default by passing options to plugin method.
+    $("#logger").stackLogger({
+        fadeOut : 4000,        //default delay before fade out a message
+        //FIXME: need to access constants names :
+        neverFadeOut : [ 4 ],  //wait for user input before close ERRor messages
+        closeButtonLabel : 'Close and Get me Some Coffe', //custom label for input button (aplies to ERRor messages)
+        classes : { warn : 'mywarn' }  //the default classes are Bootstrap 3, but you may apply your own to every LEVEL message
+    }).trigger('fade');
+
+    var $logger = $("#logger").data('stackLogger');//instance
+    //example chainning messages:
+  
+    $logger
+    .l("Ok message added", $logger.OK)                 //will apply the default delay
+  .l("Warning message added", $logger.WARN, 0)       //Will not fade out this message FIXME: add a button when zero delay or let it be configureable
+    .l("Another warning message", $logger.WARN, 6000)  //6 seconds delay
+    .l("INFO message", $logger.INFO, 8000)             //8 seconds delay
+    .l("DEFAULT level message", $logger.DEFAULT, 5000) //5 seconds delay
+    .l("ERROR message.", $logger.ERR, 500);            //ERRor messages always wait for user input (FIXME: default wait. If time is declared, honor it)
+  
+  //Testing the visual effect with random messages:
+  function randLevel(){
+    l = Math.abs( parseInt(Math.random() * 10) - 5)
+    if(l === 0)
+        return randLevel();
+    return l;
+  }
+  
+  var tid = setInterval(mycode, 3000);
+  function mycode() {
+    $logger.l("Message added to the stack", randLevel(), (randLevel()+randLevel())*2000 );
+  }
+  
+});
+</script>
+
+</body>
+</html>

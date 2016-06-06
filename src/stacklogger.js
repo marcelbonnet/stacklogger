@@ -1,16 +1,3 @@
-/* https://jsfiddle.net/marcelbonnet/vs3dbd92/16/
- * <div id="logger" class=""></div>
- * 
- * .mywarn{
-  color: black;
-  background-color: orange;
-  font-size: 120%;
-  font-weight: bold;
-  height: 100px;
-}
- */
-
-
 /* ========================================================================
  * Stack Logger
  * An Agnostic and Bootstrap 3 compatible (for default) plugin to log messages in a stack	
@@ -257,29 +244,3 @@
 // End of closure.
  
 })( jQuery );
-
-
-$(document).ready(function(){
-	// Override plugin default foreground color.
-	//$.fn.hilight.defaults.foreground = "blue";
-	// Override default by passing options to plugin method.
-	$("#logger").stackLogger({
-		fadeOut 			: 2000,
-		neverFadeOut 		: [ 4 ], //FIXME: como acessar as constantes?
-		closeButtonLabel 	: 'Fechar',
-		classes 			: { 
-					warn 	: 'mywarn', 
-				}
-	}).trigger('fade');//OK
-	
-	var $logger = $("#logger").data('stackLogger');//instance
-	console.log("info="+ $logger.INFO );
-	console.log($logger);
-	//console.log($.fn.stackLogger);
-	$logger.l("mensagem para o log", $logger.OK)
-	.l("adicionado", $logger.WARN, 0)
-	.l("ERRO, tem que ficar estático para ler", $logger.ERR, 500);
-	
-	  //$( "#logger" ).l('teste de msg', 1);
-	  //$( "#logger" ).trigger('fade')
-});
