@@ -64,7 +64,7 @@
             	onFade	: function(event, node, delay){ instance.fade(event, node, delay) },
               neverFadeOut	: [ instance.ERR ],
             }, StackLogger.DEFAULTS, options );
-            console.log(opts)
+            debug(opts)
 						addListeners(elem, 'fade', opts.onFade);
             
       			//elem.html( instance.format( elem.html() + instance.INFO ) );//test OK
@@ -197,7 +197,7 @@
  
     // Private function for debugging.
     function debug( obj ) {
-        if ( window.console && window.console.log ) {
+        if ( opts.debug === true && window.console && window.console.log ) {
             window.console.debug( "DEBUG: " );
             window.console.debug(obj);
         }
@@ -216,6 +216,7 @@
         closeButtonLabel	: 'Close',
         fadeIn				: 1000,
         fadeOut				: 4000,//fadeOut : 0 to not fade out
+        debug				: false,
         //neverFadeOut	: [ StackLogger.ERR ],
         //onFade	: function(event, node, delay){console.log($(node).html())},
         
