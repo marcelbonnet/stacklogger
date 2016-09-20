@@ -153,8 +153,10 @@
     StackLogger.prototype.log = StackLogger.l;
     
     StackLogger.prototype.fade = function(event, node, delay) {
-    		if (delay > 0)
-    			$(node).hide(delay);
+    		if (delay > 0){
+    			$(node).show(-1).delay(delay).fadeOut(200);
+    		}
+    			
     };
     
     $.fn.stackLogger00 = function( options ) {
